@@ -1,65 +1,60 @@
 #include "sort.h"
 
 /**
- * swap - swaps two numbres and prints the array after
- * @a: firt int to swap
- * @b: second int to swap
- * @array: the array of ints
- * @size: size of array
- */
-void swap(int *a, int *b, int *array, size_t size)
-{
-	int t = *a;
-
-	*a = *b;
-	*b = t;
-
-	print_array(array, size);
-}
-
-/**
  * lomuto_partition - lomuto partition scheme
- * @arr: array to part
- * @low: lowest number
- * @high: highest number
+ * @end: ending number
+ * @start: starting number
  * @array: our array to sort
  * @size: size of array
  * Return: int
  */
-int lomuto_partition(int arr[], int low, int high, int *array, size_t size)
+int lomuto_partition(int *array, int start, int end, int size)
 {
-	int pivot = arr[high];
-	int j, i = low - 1;
+	int pi = array[end];
+	int i = start, j, temp;
 
-	for (j = low; j <= high - 1; j++)
+	for (j = start; j < end; j++)
 	{
-		if (arr[j] < pivot)
+		if (array[j] <= pi)
 		{
+			if (i != j)
+			{
+				temp = array[i];
+				array[i] = array[j];
+				array[j] = temp;
+				print_array(array, size);
+			}
 			i++;
-			swap(&arr[i], &arr[j], array, size);
 		}
 	}
-	swap(&arr[i + 1], &arr[high], array, size);
-	return (i + 1);
+	if (i != end)
+	{
+		temp = array[i];
+		array[i] = array[end];
+		array[end] = temp;
+		print_array(array, size);
+	}
+	return (i);
 }
 
 /**
  * quick_sort_recur - quick sorting recursively
- * @arr: arr of ints
- * @low: lowest number
- * @high: highest number
+ * @end: ending number
+ * @start: starting number
  * @array: our array to sort
  * @size: size of the array
  */
-void quick_sort_recur(int arr[], int low, int high, int *array, size_t size)
+void quick_sort_recur(int *array, int start, int end, int size)
 {
 	int pi;
 
-	if (low < high)
+	if (start < end)
 	{
-		pi = lomuto_partition(arr, low, high, array, size);
-		quick_sort_recur(arr, low, pi - 1, array, size);
-		quick_sort_recur(arr, pi + 1, high, array, size);
+		pi = lomuto_partition(array, start, end, size);
+		quick_sort_recur(array, start, pivot - 1, size);
+		printf("%d start %d pivot %d size\n", start, pivot - 1, size);
+		quick_sort_recur(array, pivot + 1, end, size);
+		printf("%d start %d pivot %d size\n", start, pivot + 1, size);
 	}
 }
 
@@ -73,5 +68,5 @@ void quick_sort(int *array, size_t size)
 {
 	if (array == NULL || size < 2)
 		return;
-	quick_sort_recur(array, 0, size - 1, array, size);
+	quick_sort_recur(array, 0, size - 1, size);
 }
