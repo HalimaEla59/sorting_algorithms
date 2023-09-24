@@ -47,7 +47,7 @@ void insertion_sort_list(listint_t **list)
 				fornode = fornode->prev)
 		{
 			temp = fornode->prev;
-			swapnode(list, temp, fornode);
+			swap_node(list, temp, fornode);
 			print_list(*list);
 			fornode = fornode->next;
 		}
