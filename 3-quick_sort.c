@@ -51,10 +51,10 @@ void quick_sort_recur(int *array, int start, int end, int size)
 	if (start < end)
 	{
 		pi = lomuto_partition(array, start, end, size);
-		quick_sort_recur(array, start, pivot - 1, size);
-		printf("%d start %d pivot %d size\n", start, pivot - 1, size);
-		quick_sort_recur(array, pivot + 1, end, size);
-		printf("%d start %d pivot %d size\n", start, pivot + 1, size);
+		quick_sort_recur(array, start, pi - 1, size);
+		printf("%d start %d pivot %d size\n", start, pi - 1, size);
+		quick_sort_recur(array, pi + 1, end, size);
+		printf("%d start %d pivot %d size\n", start, pi + 1, size);
 	}
 }
 
