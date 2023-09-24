@@ -30,16 +30,18 @@ void swap(int *a, int *b, int *array, size_t size)
 int lomuto_partition(int arr[], int low, int high, int *array, size_t size)
 {
 	int pivot = arr[high];
-    int i = low - 1;
+	int i = low - 1, j;
 
-    for (int j = low; j <= high - 1; j++) {
-        if (arr[j] < pivot) {
-            i++;
-            swap(&arr[i], &arr[j], array, size);
-        }
-    }
-    swap(&arr[i + 1], &arr[high], array, size);
-    return (i + 1);
+	for (j = low; j <= high - 1; j++)
+	{
+		if (arr[j] < pivot)
+		{
+			i++;
+			swap(&arr[i], &arr[j], array, size);
+		}
+	}
+	swap(&arr[i + 1], &arr[high], array, size);
+	return (i + 1);
 }
 
 /**
@@ -53,13 +55,13 @@ int lomuto_partition(int arr[], int low, int high, int *array, size_t size)
 void quick_sort_recur(int arr[], int low, int high, int *array, size_t size)
 {
 	int pi;
-	
-	if (low < high) {
-        pi = lomuto_partition(arr, low, high, array, size);
 
-        quick_sort_recur(arr, low, pi - 1, array, size);
-        quick_sort_recur(arr, pi + 1, high, array, size);
-    }
+	if (low < high)
+	{
+		pi = lomuto_partition(arr, low, high, array, size);
+		quick_sort_recur(arr, low, pi - 1, array, size);
+		quick_sort_recur(arr, pi + 1, high, array, size);
+	}
 }
 
 /**
